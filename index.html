@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e-Portfolio | Ammar Thaqif | A221031</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --forest-deep:  #1A2E1A;
+    --forest-mid:   #2D5016;
+    --forest-soft:  #4A7C2F;
+    --canopy:       #6BAE3E;
+    --leaf-light:   #A8D572;
+    --moss:         #C8E6A0;
+    --earth:        #F0F7E8;
+    --bark:         #3D2B1A;
+    --cream:        #FAFEF5;
+    --text-primary: #1A2E1A;
+    --text-muted:   #5A6B4A;
+    --border:       #D4E8B8;
+    --card-bg:      #FFFFFF;
+    --shadow-sm:    0 2px 8px rgba(26,46,26,0.08);
+    --shadow-md:    0 4px 20px rgba(26,46,26,0.12);
+    --shadow-lg:    0 8px 40px rgba(26,46,26,0.16);
+    --radius:       12px;
+    --radius-lg:    20px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,254,245,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--forest-deep);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover {
+    color: var(--forest-soft);
+    background: var(--moss);
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--forest-deep);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  @media (max-width: 680px) {
+    .hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      padding: 12px 16px;
+      gap: 2px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; font-size: 0.95rem; }
+  }
+
+  /* ── HERO / HOME ── */
+  #home {
+    min-height: 92vh;
+    display: grid;
+    place-items: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 20%, rgba(107,174,62,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(74,124,47,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  /* Organic leaf shapes in hero */
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    width: 340px; height: 340px;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    background: rgba(168,213,114,0.15);
+    top: -80px; right: -60px;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+    background: rgba(107,174,62,0.12);
+    bottom: 40px; left: -40px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(6deg); }
+  }
+  .hero-content {
+    position: relative;
+    max-width: 720px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--forest-soft);
+    background: var(--moss);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: '🌿'; font-size: 0.9rem; }
+  .hero-name {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--forest-deep);
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .hero-name span {
+    color: var(--forest-soft);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .hero-intro {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.75;
+  }
+  .sdg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--forest-deep);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .sdg-badge .leaf-icon {
+    width: 28px; height: 28px;
+    background: var(--canopy);
+    border-radius: 50% 10% 50% 10%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .hero-meta {
+    margin-top: 40px;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    text-align: center;
+  }
+  .meta-item dt {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .meta-item dd {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--forest-deep);
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-header { margin-bottom: 48px; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest-soft);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 600;
+    color: var(--forest-deep);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .section-divider {
+    width: 48px; height: 3px;
+    background: var(--canopy);
+    border-radius: 2px;
+    margin-top: 16px;
+  }
+
+  /* Alternating section backgrounds */
+  section:nth-child(even) { background: var(--earth); }
+
+  /* ── LAB / PROJECT CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .card-video-wrap {
+    position: relative;
+    padding-top: 56.25%;
+    background: var(--forest-deep);
+    overflow: hidden;
+  }
+  .card-video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--forest-soft);
+    background: var(--moss);
+    padding: 3px 10px;
+    border-radius: 100px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .card-title {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--forest-deep);
+    line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .card-reflection {
+    background: var(--earth);
+    border-left: 3px solid var(--canopy);
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+    flex: 1;
+  }
+  .card-reflection strong {
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest-soft);
+    margin-bottom: 6px;
+  }
+  .card-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--forest-deep);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--forest-mid);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--forest-soft);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover {
+    background: var(--moss);
+    border-color: var(--canopy);
+  }
+  /* GitHub icon */
+  .gh-icon {
+    width: 16px; height: 16px;
+    fill: currentColor;
+  }
+
+  /* ── PROJECT CARDS (wider) ── */
+  #projects .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  }
+  .card-problem {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .card-problem strong {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest-soft);
+    margin-bottom: 4px;
+  }
+
+  /* ── REFLECTION ── */
+  #reflection { background: var(--forest-deep); color: #fff; }
+  #reflection .section-label { color: var(--leaf-light); }
+  #reflection .section-title { color: #fff; }
+  #reflection .section-divider { background: var(--canopy); }
+  .reflection-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 720px) { .reflection-body { grid-template-columns: 1fr; } }
+  .reflection-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.88);
+  }
+  .reflection-text p + p { margin-top: 16px; }
+  .reflection-quote {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--leaf-light);
+    line-height: 1.7;
+    position: relative;
+  }
+  .reflection-quote::before {
+    content: '"';
+    font-size: 4rem;
+    color: var(--canopy);
+    opacity: 0.4;
+    position: absolute;
+    top: 4px; left: 16px;
+    font-family: 'Lora', serif;
+    line-height: 1;
+  }
+
+  /* ── SKILLS ── */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .skill-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--forest-deep);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+  .skill-pill:hover {
+    background: var(--forest-deep);
+    color: #fff;
+    border-color: var(--forest-deep);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .skill-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--canopy);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .skill-pill:hover .skill-dot { background: var(--leaf-light); }
+
+  /* ── RESOURCES ── */
+  .resources-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    list-style: none;
+  }
+  .resource-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+  .resource-item:hover {
+    border-color: var(--canopy);
+    box-shadow: var(--shadow-md);
+  }
+  .resource-icon {
+    width: 36px; height: 36px;
+    background: var(--moss);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .resource-name {
+    font-weight: 600;
+    color: var(--forest-deep);
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .resource-type {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .ai-note {
+    margin-top: 28px;
+    background: var(--earth);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .ai-note strong { color: var(--forest-deep); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 0.875rem;
+    line-height: 1.8;
+  }
+  footer strong { color: #fff; }
+  footer .footer-leaf {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  /* ── SCROLL REVEAL (JS) ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s, transform 0.55s; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#home">AT / A221031</a>
+    <button class="hamburger" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" role="list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#labs">Labs</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#reflection">Reflection</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════════ HOME ════════════ -->
+<section id="home" aria-labelledby="hero-name">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Software Engineering e-Portfolio</div>
+    <h1 class="hero-name" id="hero-name">
+      Ammar Thaqif<br><span>bin Khairudin</span>
+    </h1>
+    <p class="hero-sub">A221031 &nbsp;·&nbsp; Faculty of Computer Science &amp; Information Technology</p>
+    <p class="hero-intro">
+      I'm a software engineering student who enjoys learning new things and is excited to face new challenges during my process of learning.
+    </p>
+    <div class="sdg-badge" aria-label="SDG 15 — Life on Land">
+      <span class="leaf-icon" aria-hidden="true"></span>
+      SDG 15 — Life on Land
+    </div>
+    <dl class="hero-meta">
+      <div class="meta-item">
+        <dt>Programme</dt>
+        <dd>Software Engineering</dd>
+      </div>
+      <div class="meta-item">
+        <dt>Instructor</dt>
+        <dd>Nelson Budin Sana</dd>
+      </div>
+      <div class="meta-item">
+        <dt>Matric No</dt>
+        <dd>A221031</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ════════════ LABS ════════════ -->
+<section id="labs" aria-labelledby="labs-title">
+  <div class="section-inner">
+    <header class="section-header reveal">
+      <p class="section-label">Coursework</p>
+      <h2 class="section-title" id="labs-title">Laboratory Work</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="cards-grid">
+
+      <!-- LAB 1 -->
+      <article class="card reveal" aria-label="Lab 1 — UI Layouts">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/GQhlXXMpQ5I"
+            title="Lab 1: UI Layouts demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Lab 1</span>
+          <h3 class="card-title">UI Layouts with Jetpack Compose</h3>
+          <p class="card-desc">Building foundational user interface layouts using Jetpack Compose's declarative approach.</p>
+          <div class="card-reflection">
+            <strong>Reflection</strong>
+            It was a bit confusing to understand how Compose layouts work since this was my first time. But after taking time to study it, I now understand and can use Compose layouts confidently.
+          </div>
+        </div>
+      </article>
+
+      <!-- LAB 2 -->
+      <article class="card reveal" aria-label="Lab 2 — Interaction">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/sPiXDocVZZA"
+            title="Lab 2: User Interaction demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Lab 2</span>
+          <h3 class="card-title">Interaction &amp; Event Handling</h3>
+          <p class="card-desc">Exploring event handling, clickable areas, and basic state management in Compose.</p>
+          <div class="card-reflection">
+            <strong>Reflection</strong>
+            Explored event handling and user interactions. Implementing clickable areas and managing basic state made the static UI come alive.
+          </div>
+        </div>
+      </article>
+
+      <!-- LAB 3 -->
+      <article class="card reveal" aria-label="Lab 3 — Material Design">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/d4zDfEBcvYI"
+            title="Lab 3: Material Design demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Lab 3</span>
+          <h3 class="card-title">Material Design Tokens</h3>
+          <p class="card-desc">Applying Material 3 design tokens to achieve consistent, accessible styling across screens.</p>
+          <div class="card-reflection">
+            <strong>Reflection</strong>
+            Using unified Material tokens made it simple to keep styling consistent across screens while maintaining high contrast for easier reading.
+          </div>
+        </div>
+      </article>
+
+      <!-- LAB 4 -->
+      <article class="card reveal" aria-label="Lab 4 — Navigation">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/nrOy4FHtjGo"
+            title="Lab 4: Navigation Component demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Lab 4</span>
+          <h3 class="card-title">Navigation Component</h3>
+          <p class="card-desc">Connecting multiple screens with Jetpack Navigation Component for structured multi-screen apps.</p>
+          <div class="card-reflection">
+            <strong>Reflection</strong>
+            In this lab, I learned how to connect multiple screens using Navigation Component. This helped me build multi-screen applications in a more structured way.
+          </div>
+        </div>
+      </article>
+
+      <!-- LAB 5 -->
+      <article class="card reveal" aria-label="Lab 5 — Room Database">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/hOoiJBjtD1c"
+            title="Lab 5: Room Database demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Lab 5</span>
+          <h3 class="card-title">Room Local Persistence</h3>
+          <p class="card-desc">Implementing offline-capable data storage using Room, DAOs, Entities, and Coroutines.</p>
+          <div class="card-reflection">
+            <strong>Reflection</strong>
+            Implemented local persistence using Room. Understanding DAOs, Entities, and Coroutines was challenging but essential for creating offline-capable applications.
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROJECTS ════════════ -->
+<section id="projects" aria-labelledby="projects-title">
+  <div class="section-inner">
+    <header class="section-header reveal">
+      <p class="section-label">Capstone Work</p>
+      <h2 class="section-title" id="projects-title">Projects</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="cards-grid">
+
+      <!-- PROJECT 1 -->
+      <article class="card reveal" aria-label="Project 1 — Nature Hub">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/NqJwsOn1-io"
+            title="Project 1: Nature Hub — Video Screen Recording"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Project 1 · Lab 4 + Features</span>
+          <h3 class="card-title">Nature Hub</h3>
+          <div class="card-problem">
+            <strong>Problem Statement</strong>
+            Plant biodiversity information is often scattered and difficult for students to access in an organised way. This reduces awareness and understanding of plant diversity in maintaining ecosystems. Nature Hub provides a simple, structured platform to explore plant families, genera, and species interactively.
+          </div>
+          <div class="card-reflection">
+            <strong>Lessons Learned</strong>
+            Successfully built a multi-screen application using Jetpack Compose and Navigation. I learned how to share and hoist state using a centralized ViewModel to ensure user data survives screen rotations.
+          </div>
+        </div>
+        <div class="card-footer">
+          <a
+            class="btn btn-primary"
+            href="https://github.com/Ammartha31/A221031_Ammar_DrNelson_Project1/tree/main"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Project 1 on GitHub">
+            <svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </article>
+
+      <!-- PROJECT 2 -->
+      <article class="card reveal" aria-label="Project 2 — Nature Hub Advanced">
+        <div class="card-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/nTMcSs_f7MU"
+            title="Project 2: Nature Hub Advanced — Video Screen Recording"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Project 2 · Lab 5 + API + Sensors + Cloud</span>
+          <h3 class="card-title">Nature Hub — Advanced</h3>
+          <div class="card-problem">
+            <strong>Problem Statement</strong>
+            Expanding on Project 1, users need a tool to verify the plant they discovered in their daily life — integrating live plant identification APIs, on-device camera sensors, and cloud sync.
+          </div>
+          <div class="card-reflection">
+            <strong>Lessons Learned</strong>
+            I learned how to connect an app to a local Room database and Firebase cloud so data is accessible across devices. I also learned to consume external APIs with Retrofit for live data.
+          </div>
+        </div>
+        <div class="card-footer">
+          <a
+            class="btn btn-primary"
+            href="https://github.com/Ammartha31/A221031_Ammar_DrNelson_Project2.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Project 2 on GitHub">
+            <svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ REFLECTION ════════════ -->
+<section id="reflection" aria-labelledby="reflection-title">
+  <div class="section-inner">
+    <header class="section-header reveal">
+      <p class="section-label">Learning Journey</p>
+      <h2 class="section-title" id="reflection-title">Reflection</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+    <div class="reflection-body">
+      <div class="reflection-text reveal">
+        <p>
+          From Lab 1 to Project 2, my journey evolved from building simple static UIs to developing a complete, data-driven Android ecosystem. I overcame significant technical challenges, particularly in managing complex state across more than 7 screens and implementing advanced hardware sensors via Device Camera.
+        </p>
+        <p>
+          Building Nature Hub demonstrated how mobile technology can directly impact SDG 15 by promoting biodiversity awareness, plant education, and digital conservation practices. Learning to integrate Room for local persistence, Firebase for cloud syncing, and Retrofit for live APIs has given me the confidence and skills to architect production-ready software.
+        </p>
+      </div>
+      <blockquote class="reflection-quote reveal">
+        Technology becomes meaningful when it connects people back to the natural world — Nature Hub is my contribution to that bridge.
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SKILLS ════════════ -->
+<section id="skills" aria-labelledby="skills-title">
+  <div class="section-inner">
+    <header class="section-header reveal">
+      <p class="section-label">Tech Stack</p>
+      <h2 class="section-title" id="skills-title">Skills &amp; Technologies</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+    <div class="skills-wrap reveal" role="list" aria-label="Technologies and skills">
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Kotlin</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Jetpack Compose</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Room</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Retrofit</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Firebase Firestore</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>CameraX</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Navigation Component</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>ViewModel</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Coroutines</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Material 3</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>Firebase Auth</span>
+      <span class="skill-pill" role="listitem"><span class="skill-dot" aria-hidden="true"></span>State Hoisting</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ RESOURCES ════════════ -->
+<section id="resources" aria-labelledby="resources-title">
+  <div class="section-inner">
+    <header class="section-header reveal">
+      <p class="section-label">References &amp; Tools</p>
+      <h2 class="section-title" id="resources-title">Resources</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <ul class="resources-list reveal" role="list">
+      <li class="resource-item">
+        <div class="resource-icon" aria-hidden="true">🌿</div>
+        <div>
+          <div class="resource-name">Plant.id API</div>
+          <div class="resource-type">Plant Identification API</div>
+        </div>
+      </li>
+      <li class="resource-item">
+        <div class="resource-icon" aria-hidden="true">🍃</div>
+        <div>
+          <div class="resource-name">PlantNet API</div>
+          <div class="resource-type">Botanical Recognition API</div>
+        </div>
+      </li>
+      <li class="resource-item">
+        <div class="resource-icon" aria-hidden="true">☁️</div>
+        <div>
+          <div class="resource-name">Firebase Firestore</div>
+          <div class="resource-type">Cloud Database</div>
+        </div>
+      </li>
+      <li class="resource-item">
+        <div class="resource-icon" aria-hidden="true">🔐</div>
+        <div>
+          <div class="resource-name">Firebase Authentication</div>
+          <div class="resource-type">User Auth Service</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="ai-note reveal" role="note" aria-label="AI assistance disclosure">
+      <strong>AI Assistance Disclosure:</strong> AI assistance was utilized for debugging complex recomposition UI issues, verifying UML/DFD documentation architecture, and structuring formatting for this e-Portfolio. All core development, learning, and decision-making remained the student's own work.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <span class="footer-leaf" aria-hidden="true">🌱</span>
+  <strong>Ammar Thaqif bin Khairudin</strong> &nbsp;·&nbsp; A221031<br>
+  Software Engineering &nbsp;·&nbsp; Instructor: Nelson Budin Sana<br>
+  <small style="opacity:0.55; margin-top:8px; display:block;">SDG 15 — Life on Land &nbsp;·&nbsp; © 2025</small>
+</footer>
+
+<!-- ════════════ JS ════════════ -->
+<script>
+  // Scroll-reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 90) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--forest-soft)' : '';
+      a.style.background = a.getAttribute('href') === '#' + current
+        ? 'var(--moss)' : '';
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
